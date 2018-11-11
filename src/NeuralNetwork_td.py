@@ -54,8 +54,7 @@ class NeuralNetwork(object):
             train_labels {np.array} -- The training labels
             epochs {int} -- The number of epochs to train for
         """
-
-        pass
+        self.model.fit(train_data, train_labels, epochs=epochs)
 
     def evaluate(self, eval_data, eval_labels):
         """Calculate the accuracy of the model
@@ -64,7 +63,7 @@ class NeuralNetwork(object):
             eval_data {np.array} -- The evaluation images
             eval_labels {np.array} -- The labels for the evaluation images
         """
-        pass
+        return self.model.evaluate(eval_data, eval_labels)[1]
 
     def test(self, test_data):
         """Make predictions for a list of images and display the results
@@ -72,7 +71,7 @@ class NeuralNetwork(object):
         Arguments:
             test_data {np.array} -- The test images
         """
-        pass
+        return self.model.predict(test_data)
 
     # Exercise 7 Save and load a model using the keras.models API
     def save_model(self, save_file="model.h5"):
@@ -81,7 +80,8 @@ class NeuralNetwork(object):
         Keyword Arguments:
             saveFile {str} -- The name of the model file (default: {"model.h5"})
         """
-        pass
+        return self.model.predict(test_data)
+
 
     def load_model(self, save_file="model.h5"):
         """Load a model using the keras.models API
@@ -89,4 +89,4 @@ class NeuralNetwork(object):
         Keyword Arguments:
             saveFile {str} -- The name of the model file (default: {"model.h5"})
         """
-        pass
+        self.model = keras.models.load_model(saveFile)
