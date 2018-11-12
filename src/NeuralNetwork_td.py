@@ -23,8 +23,9 @@ class NeuralNetwork(object):
                                 bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
                                 bias_constraint=None))  # CONV1
 
-        self.model.add(keras.layers.MaxPool2D(pool_size=3, strides=2, padding='valid', data_format='channels_last'))
-        self.model.add(keras.layers.BatchNormalization())
+        self.model.add(
+            keras.layers.MaxPool2D(pool_size=3, strides=2, padding='valid', data_format='channels_last'))  # POOL1
+        self.model.add(keras.layers.BatchNormalization())  # RNORM1
         self.model.add(
             keras.layers.Conv2D(filters=32, kernel_size=5, strides=(1, 1), padding='valid', data_format='channels_last',
                                 dilation_rate=(1, 1), activation=None, use_bias=True,
@@ -32,8 +33,9 @@ class NeuralNetwork(object):
                                 bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
                                 bias_constraint=None))  # CONV2
         self.model.add(
-            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='valid', data_format='channels_last'))
-        self.model.add(keras.layers.BatchNormalization())
+            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='valid',
+                                          data_format='channels_last'))  # POOL2
+        self.model.add(keras.layers.BatchNormalization())  # RNORM2
         self.model.add(
             keras.layers.Conv2D(filters=32, kernel_size=5, strides=(1, 1), padding='valid', data_format='channels_last',
                                 dilation_rate=(1, 1), activation=None, use_bias=True,
@@ -41,10 +43,10 @@ class NeuralNetwork(object):
                                 bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
                                 bias_constraint=None))  # CONV3
         self.model.add(
-            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='valid', data_format='channels_last'))
+            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='valid',
+                                          data_format='channels_last'))  # POOL3
         self.model.add(keras.layers.Flatten())
         self.model.add(keras.layers.Dense(10, activation=tf.nn.softmax))  # FC10
-
 
     def train(self, train_data, train_labels, epochs):
         """Train the keras model
@@ -80,8 +82,7 @@ class NeuralNetwork(object):
         Keyword Arguments:
             saveFile {str} -- The name of the model file (default: {"model.h5"})
         """
-        return self.model.predict(test_data)
-
+        self.model.save(save_file)
 
     def load_model(self, save_file="model.h5"):
         """Load a model using the keras.models API
@@ -89,4 +90,4 @@ class NeuralNetwork(object):
         Keyword Arguments:
             saveFile {str} -- The name of the model file (default: {"model.h5"})
         """
-        self.model = keras.models.load_model(saveFile)
+        self.model = keras.models.load_model(save_file)
