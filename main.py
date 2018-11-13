@@ -7,10 +7,9 @@ def main():
     data_manager.loadData()
     neural_network = NeuralNetwork()
     neural_network.create_model()
-    neural_network.train(data_manager.train_data, data_manager.train_labels, 6)
+    neural_network.train(data_manager.train_data, data_manager.train_labels, epochs=50)
     result = neural_network.evaluate(data_manager.eval_data, data_manager.eval_labels)
     print("Accuracy : {}".format(result))
-
     pass
 
 if __name__ == "__main__":
