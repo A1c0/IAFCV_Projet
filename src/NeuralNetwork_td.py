@@ -23,21 +23,13 @@ class NeuralNetwork(object):
             keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same'))  # POOL1
         self.model.add(keras.layers.BatchNormalization())  # RNORM1
         self.model.add(
-            keras.layers.Conv2D(filters=32, kernel_size=5, strides=(1, 1), padding='same', data_format='channels_last',
-                                dilation_rate=(1, 1), activation=None, use_bias=True,
-                                kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None,
-                                bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
-                                bias_constraint=None))  # CONV2
+            keras.layers.Conv2D(filters=32, kernel_size=5, padding='same', data_format='channels_last')  # CONV2
         self.model.add(
             keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='same',
                                           data_format='channels_last'))  # POOL2
         self.model.add(keras.layers.BatchNormalization())  # RNORM2
         self.model.add(
-            keras.layers.Conv2D(filters=32, kernel_size=5, strides=(1, 1), padding='same', data_format='channels_last',
-                                dilation_rate=(1, 1), activation=None, use_bias=True,
-                                kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None,
-                                bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
-                                bias_constraint=None))  # CONV3
+            keras.layers.Conv2D(filters=32, kernel_size=5, padding='same', data_format='channels_last')  # CONV3
         self.model.add(
             keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='same',
                                           data_format='channels_last'))  # POOL3
