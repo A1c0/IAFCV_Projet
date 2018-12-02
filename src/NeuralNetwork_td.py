@@ -21,18 +21,19 @@ class NeuralNetwork(object):
                                 data_format='channels_last', activation=tf.nn.relu))  # CONV1
         self.model.add(
             keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same'))  # POOL1
+        self.model.add(keras.layers.Dropout(0.5))
         self.model.add(keras.layers.BatchNormalization())  # RNORM1
         self.model.add(
-            keras.layers.Conv2D(filters=32, kernel_size=5, padding='same', data_format='channels_last'))  # CONV2
+            keras.layers.Conv2D(filters=64, kernel_size=5, padding='same', data_format='channels_last'))  # CONV2
         self.model.add(
-            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='same',
-                                          data_format='channels_last'))  # POOL2
+            keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same',
+                                   data_format='channels_last'))  # POOL2
         self.model.add(keras.layers.BatchNormalization())  # RNORM2
         self.model.add(
-            keras.layers.Conv2D(filters=32, kernel_size=5, padding='same', data_format='channels_last'))  # CONV3
+            keras.layers.Conv2D(filters=64, kernel_size=5, padding='same', data_format='channels_last'))  # CONV3
         self.model.add(
-            keras.layers.AveragePooling2D(pool_size=3, strides=2, padding='same',
-                                          data_format='channels_last'))  # POOL3
+            keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same',
+                                   data_format='channels_last'))  # POOL3
         self.model.add(keras.layers.Flatten())
         self.model.add(keras.layers.Dense(10, activation=tf.nn.softmax))  # FC10
 
@@ -40,7 +41,7 @@ class NeuralNetwork(object):
                            loss='sparse_categorical_crossentropy',
                            metrics=['accuracy'])
 
-    def train(self, train_data, train_labels, epochs):
+    def train(self, train_data, train_labels, eval_data, eval_labels, epochs):
         """Train the keras model
         
         Arguments:
@@ -48,7 +49,7 @@ class NeuralNetwork(object):
             train_labels {np.array} -- The training labels
             epochs {int} -- The number of epochs to train for
         """
-        self.model.fit(train_data, train_labels, epochs=epochs)
+        self.model.fit(train_data, train_labels, epochs=epochs, validation_data=(eval_data, eval_labels))
 
     def evaluate(self, eval_data, eval_labels):
         """Calculate the accuracy of the model
