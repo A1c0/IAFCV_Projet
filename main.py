@@ -11,6 +11,7 @@ def main():
     neural_network.train(data_manager.train_data, data_manager.train_labels, data_manager.eval_data,
                          data_manager.eval_labels, epochs=100)
     result = neural_network.evaluate(data_manager.eval_data, data_manager.eval_labels)
+    neural_network.save_model()
     print("Accuracy : {}".format(result))
     pass
 

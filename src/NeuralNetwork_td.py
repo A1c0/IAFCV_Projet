@@ -69,18 +69,18 @@ class NeuralNetwork(object):
         return self.model.predict(test_data)
 
     # Exercise 7 Save and load a model using the keras.models API
-    def save_model(self, save_file="model.h5"):
+    def save_model(self, save_file="best.h5"):
         """Save a model using the keras.models API
         
         Keyword Arguments:
-            saveFile {str} -- The name of the model file (default: {"model.h5"})
+            saveFile {str} -- The name of the model file (default: {"best.h5"})
         """
         self.model.save(save_file)
 
-    def load_model(self, save_file="model.h5"):
+    def load_model(self, save_file="best.h5"):
         """Load a model using the keras.models API
         
         Keyword Arguments:
-            saveFile {str} -- The name of the model file (default: {"model.h5"})
+            saveFile {str} -- The name of the model file (default: {"best.h5"})
         """
         self.model = keras.models.load_model(save_file)
